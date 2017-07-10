@@ -1,0 +1,10 @@
+
+<b> RSA: Common modulus with relatively prime public exponents</b>
+
+<form action="/utils/rsa1/" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" label="Submit">
+</form>
+
+{{message}}
