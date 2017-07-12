@@ -1,6 +1,15 @@
 
+import random
+
+def random_zn_star(n):
+    # r in Zn* i.e. gcd(r,n) =1
+    r = random.randint(2, n-1)
+    while xgcd(r,n)[0] != 1:
+        r = random.randint(2, n-1)
+    return r
+
 def xgcd(a, b):
-    # Function return (g, x, y)
+    # Function return (gcd, x, y)
     if a == 0:
         return b, 0, 1
     if b == 0:
@@ -20,7 +29,17 @@ def modinv(a, n):
         return None
     return x % n
 
-def rsa1(n, e1, c1, e2, c2):
+def rsa_sign(n, d, msg):
+    return pow(msg, d, n)
+
+def rsa_msg_blind(n, e, msg):
+    r = random_zn_star(n)
+    return (pow(r, e, n)*msg)%n, r
+
+def rsa_blind_sign(r, n, s):
+    return (s*modinv(r,n))%n
+
+def rsa_commod(n, e1, c1, e2, c2):
     '''
     RSA Common modulus attack with gcd(e1, e2) == 1
     '''
